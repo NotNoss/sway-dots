@@ -25,7 +25,7 @@ set $screenshot ~/.config/rofi/applets/bin/screenshot.sh
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Documents/wallpaper/wallhaven-1k26d1.jpg fill
+output * bg ~/Documents/wallpaper/tn-glados-better.jpg fill
 #
 # Example configuration:
 #
