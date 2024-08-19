@@ -18,7 +18,9 @@ set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | wmenu | xargs swaymsg exec --
+set $menu ~/.config/rofi/launchers/type-7/launcher.sh
+set $power ~/.config/rofi/powermenu/type-5/powermenu.sh
+set $screenshot ~/.config/rofi/applets/bin/screenshot.sh
 
 ### Output configuration
 #
@@ -69,10 +71,13 @@ output * bg ~/Documents/wallpaper/wallhaven-1k26d1.jpg fill
     bindsym $mod+q kill
 
     # Start your launcher
-    bindsym $mod+d exec ~/.config/rofi/launchers/type-7/launcher.sh
+    bindsym $mod+d exec $menu
 
     # Power Menu
-    bindsym $mod+x exec ~/.config/rofi/powermenu/type-5/powermenu.sh
+    bindsym $mod+x exec $power
+
+    # Screenshot Menu
+    bindsym $mod+Shift+s exec $screenshot
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
