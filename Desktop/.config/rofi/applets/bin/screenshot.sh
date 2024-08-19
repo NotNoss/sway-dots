@@ -34,17 +34,17 @@ fi
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" Capture Desktop"
-	option_2=" Capture Area"
-	option_3=" Capture Window"
-	option_4=" Capture in 5s"
-	option_5=" Capture in 10s"
+	option_1="󰍹 Capture Desktop"
+	option_2="󰩭 Capture Area"
+	option_3=" Capture Window"
+	option_4="󱇸 Capture in 5s"
+	option_5="󰵱 Capture in 10s"
 else
-	option_1=""
-	option_2=""
-	option_3=""
-	option_4=""
-	option_5=""
+	option_1="󰍹" 
+	option_2="󰩭"
+	option_3=""
+	option_4="󱇸"
+	option_5="󰵱"
 fi
 
 # Rofi CMD
@@ -66,9 +66,9 @@ run_rofi() {
 
 # Screenshot
 time=`date +%Y-%m-%d-%H-%M-%S`
-geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
+#geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
 dir="`xdg-user-dir PICTURES`/Screenshots"
-file="Screenshot_${time}_${geometry}.png"
+file="Screenshot_${time}.png"
 
 if [[ ! -d "$dir" ]]; then
 	mkdir -p "$dir"
@@ -78,7 +78,7 @@ fi
 notify_view() {
 	notify_cmd_shot='dunstify -u low --replace=699'
 	${notify_cmd_shot} "Copied to clipboard."
-	viewnior ${dir}/"$file"
+	#viewnior ${dir}/"$file"
 	if [[ -e "$dir/$file" ]]; then
 		${notify_cmd_shot} "Screenshot Saved."
 	else
@@ -101,29 +101,34 @@ countdown () {
 
 # take shots
 shotnow () {
-	cd ${dir} && sleep 0.5 && maim -u -f png | copy_shot
+	#cd ${dir} && sleep 0.5 && maim -u -f png | copy_shot
+	sway-screenshot -m output
 	notify_view
 }
 
 shot5 () {
 	countdown '5'
-	sleep 1 && cd ${dir} && maim -u -f png | copy_shot
+	#sleep 1 && cd ${dir} && maim -u -f png | copy_shot
+	shotnow
 	notify_view
 }
 
 shot10 () {
 	countdown '10'
-	sleep 1 && cd ${dir} && maim -u -f png | copy_shot
+	#sleep 1 && cd ${dir} && maim -u -f png | copy_shot
+	shotnow
 	notify_view
 }
 
 shotwin () {
-	cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot
+	#cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot
+	sway-screenshot -m window
 	notify_view
 }
 
 shotarea () {
-	cd ${dir} && maim -u -f png -s -b 2 -c 0.35,0.55,0.85,0.25 -l | copy_shot
+	#cd ${dir} && maim -u -f png -s -b 2 -c 0.35,0.55,0.85,0.25 -l | copy_shot
+	sway-screenshot -m region
 	notify_view
 }
 
