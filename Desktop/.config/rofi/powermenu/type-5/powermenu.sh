@@ -78,8 +78,10 @@ run_cmd() {
 				openbox --exit
 			elif [[ "$DESKTOP_SESSION" == 'bspwm' ]]; then
 				bspc quit
-			elif [[ "$DESKTOP_SESSION" == 'i3' ]]; then
+			elif [[ "$DESKTOP_SESSION" == 'i3' || "$DESKTOP_SESSION" == 'i3-with-shmlog' ]]; then
 				i3-msg exit
+			elif [[ "$DESKTOP_SESSION" == 'sway' ]]; then
+				swaymsg exit
 			elif [[ "$DESKTOP_SESSION" == 'plasma' ]]; then
 				qdbus org.kde.ksmserver /KSMServer logout 0 0 0
 			fi
@@ -102,8 +104,9 @@ case ${chosen} in
 		run_cmd --hibernate
         ;;
     $lock)
-		if [[ -x '/usr/bin/betterlockscreen' ]]; then
-			betterlockscreen -l
+		if [[ -x '/usr/local/bin/betterlockscreen' ]]; then
+			betterlockscreen -u ~/Documents/wallpaper/thecakeisalie.png
+			betterlockscreen -l dim
 		elif [[ -x '/usr/bin/i3lock' ]]; then
 			i3lock
 		fi

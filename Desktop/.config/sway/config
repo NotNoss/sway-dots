@@ -21,6 +21,7 @@ set $term kitty
 set $menu ~/.config/rofi/launchers/type-7/launcher.sh
 set $power ~/.config/rofi/powermenu/type-5/powermenu.sh
 set $screenshot ~/.config/rofi/applets/bin/screenshot.sh
+set $appasroot ~/.config/rofi/applets/bin/appasroot.sh
 
 ### Output configuration
 #
@@ -32,6 +33,10 @@ output * bg ~/Documents/wallpaper/tn-glados-better.jpg fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+output DP-2 pos 1920 1080 mode 1920x1080@144Hz
+output HDMI-A-1 pos 3840 1080 res 1920x1080
+output DP-1 pos 0 1080 res 1920x1080
+output DP-3 pos 1920 0 res 1920x1080
 
 ### Idle configuration
 #
@@ -78,6 +83,9 @@ output * bg ~/Documents/wallpaper/tn-glados-better.jpg fill
 
     # Screenshot Menu
     bindsym $mod+Shift+s exec $screenshot
+
+    # App As Root Menu
+    bindsym $mod+Shift+d exec $appasroot
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
