@@ -105,7 +105,7 @@ case ${chosen} in
         ;;
     $lock)
 		if [[ -x '/usr/local/bin/betterlockscreen' ]]; then
-			betterlockscreen -u ~/Documents/wallpaper/thecakeisalie.png
+			#betterlockscreen -u ~/Documents/wallpaper/thecakeisalie.png
 			betterlockscreen -l dim
 		elif [[ -x '/usr/bin/i3lock' ]]; then
 			i3lock

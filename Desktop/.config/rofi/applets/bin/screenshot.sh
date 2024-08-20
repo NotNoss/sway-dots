@@ -66,8 +66,8 @@ run_rofi() {
 
 # Screenshot
 time=`date +%Y-%m-%d-%H-%M-%S`
-#geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
-dir="`xdg-user-dir PICTURES`/Screenshots"
+geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
+dir="/home/noss/Pictures/Screenshots"
 file="Screenshot_${time}.png"
 
 if [[ ! -d "$dir" ]]; then
@@ -101,34 +101,49 @@ countdown () {
 
 # take shots
 shotnow () {
-	#cd ${dir} && sleep 0.5 && maim -u -f png | copy_shot
-	sway-screenshot -m output
+	if [[ "$DESKTOP_SESSION" == 'i3' || "$DESKTOP_SESSION" == 'i3-with-shmlog' ]]; then
+		cd ${dir} && sleep 0.5 && maim -u -f png | copy_shot
+	elif [[ "$DESKTOP_SESSION" == 'sway' ]]; then
+		sway-screenshot -m output -o ${dir}
+	fi
 	notify_view
 }
 
 shot5 () {
 	countdown '5'
-	#sleep 1 && cd ${dir} && maim -u -f png | copy_shot
-	shotnow
+	if [[ "$DESKTOP_SESSION" == 'i3' || "$DESKTOP_SESSION" == 'i3-with-shmlog' ]]; then
+		sleep 1 && cd ${dir} && maim -u -f png | copy_shot
+	elif [[ "$DESKTOP_SESSION" == 'sway' ]]; then
+		sway-screenshot -m output -o ${dir}
+	fi
 	notify_view
 }
 
 shot10 () {
 	countdown '10'
-	#sleep 1 && cd ${dir} && maim -u -f png | copy_shot
-	shotnow
+	if [[ "$DESKTOP_SESSION" == 'i3' || "$DESKTOP_SESSION" == 'i3-with-shmlog' ]]; then
+		sleep 1 && cd ${dir} && maim -u -f png | copy_shot
+	elif [[ "$DESKTOP_SESSION" == 'sway' ]]; then
+		sway-screenshot -m output -o ${dir}
+	fi
 	notify_view
 }
 
 shotwin () {
-	#cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot
-	sway-screenshot -m window
+	if [[ "$DESKTOP_SESSION" == 'i3' || "$DESKTOP_SESSION" == 'i3-with-shmlog' ]]; then
+		cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot
+	elif [[ "$DESKTOP_SESSION" == 'sway' ]]; then
+		sway-screenshot -m window -o ${dir}
+	fi
 	notify_view
 }
 
 shotarea () {
-	#cd ${dir} && maim -u -f png -s -b 2 -c 0.35,0.55,0.85,0.25 -l | copy_shot
-	sway-screenshot -m region
+	if [[ "$DESKTOP_SESSION" == 'i3' || "$DESKTOP_SESSION" == 'i3-with-shmlog' ]]; then
+		cd ${dir} && maim -u -f png -s -b 2 -c 0.35,0.55,0.85,0.25 -l | copy_shot
+	elif [[ "$DESKTOP_SESSION" == 'sway' ]]; then
+		sway-screenshot -m region -o ${dir}
+	fi
 	notify_view
 }
 
